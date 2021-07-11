@@ -24,12 +24,16 @@ class QuotesSpider(scrapy.Spider):
     def parse(self, response: HtmlResponse, **kwargs):
         self.logger.info("Hello from my quotes spider")
 
+        # we can also use xpath selectors
         quotes = response.css("div.quote")
 
         for quote in quotes:
             # use `.get` only to obtain a string
+            # .get() always returns a single result; if there are several matches, content of a
+            # first match is returned; if there are no matches, None is returned. .getall() returns
+            # a list with all results.
             yield Quote(
-                quote.css(".text::text").get(),
+                quote.css(".text::text").get(default=""),
                 quote.css(".author::text").get(),
                 quote.css(".tag::text").getall(),
             )
