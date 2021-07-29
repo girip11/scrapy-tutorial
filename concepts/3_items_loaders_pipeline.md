@@ -76,6 +76,14 @@ Nested loaders can be created using `loader_instance.nested_xpath` or `loader_in
 
 ## Item pipeline
 
+> Each item pipeline component (sometimes referred as just “Item Pipeline”) is a Python class that implements a simple method. They receive an item and perform an action over it, also deciding if the item should continue through the pipeline or be dropped and no longer processed.
+
+- Method to implement is `process_item(self, item, spider)`
+
+- Additionally `open_spider` and `close_spider` methods can be implemented. These two could serve as setup and cleanup type methods.
+
+- `from_crawler(cls, crawler)` should return an instance of the crawler pipeline.
+
 ---
 
 ## References
